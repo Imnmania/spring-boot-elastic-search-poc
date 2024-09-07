@@ -1,0 +1,9 @@
+spring.application.name=elasticSearch_poc
+
+## Elastic Search
+elasticsearch-host=<elastic-search-host-ip>
+elasticsearch-port=<elastic-search-host-port>
+elasticsearch-protocol=https
+elasticsearch-user-name=elastic
+elasticsearch-password=<elastic-search-host-password>
+elasticsearch-trust-location=<path-to-your-keys>/truststore.p12
