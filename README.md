@@ -1,6 +1,5 @@
-## Elastic Search Implementation in Spring Boot
+## Elastic Search Implementation in Spring Boot  
 
----
 * **Change the default password** 
 ```
 ~/development/elasticsearch-8.15.1/bin/elasticsearch-reset-password -u elastic --interactive
