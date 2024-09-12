@@ -38,10 +38,10 @@ public class HttpClientConfigCallbackImpl implements HttpClientConfigCallback {
             credentialsProvider.setCredentials(AuthScope.ANY, usernamePasswordCredentials);
             httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
 
-            final String trustLocation = environment.getProperty("elasticsearch-trust-location");
-            final File trustLocationFile = new File(Objects.requireNonNull(trustLocation));
+            final String trustMaterialLocation = environment.getProperty("elasticsearch-trust-location");
+            final File trustMaterialFile = new File(Objects.requireNonNull(trustMaterialLocation));
             final SSLContextBuilder sslContextBuilder = SSLContexts.custom().loadTrustMaterial(
-                    trustLocationFile,
+                    trustMaterialFile,
                     Objects.requireNonNull(password).toCharArray()
             );
             final SSLContext sslContext = sslContextBuilder.build();

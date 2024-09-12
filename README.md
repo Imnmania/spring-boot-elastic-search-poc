@@ -10,7 +10,7 @@ keytool -import -file "~/development/elasticsearch-8.15.1/config/certs/http_ca.c
 ```
 * **Check if the index has been created in elasticSearch**
 ```
-https://localhost:9200/_cat/indices
+https://localhost:9200/_cat/indices?v
 ```
 
 * **[Documentation](https://www.javainuse.com/boot3/elast/1)**
