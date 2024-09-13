@@ -10,7 +10,7 @@
 6. lombok
 ---
 
-## `Work with ElasticSearch local install`
+## `Work with ElasticSearch on local install`
 
 * **Change the default password** 
 ```
