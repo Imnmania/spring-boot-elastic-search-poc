@@ -29,6 +29,8 @@ public class ProductController {
     private final ElasticSearchService elasticSearchService;
     private final ModelMapper modelMapper;
 
+    // region REST implementation
+
     @GetMapping
     public ResponseEntity<List<ProductDTO>> findAllProducts() {
         List<ProductDTO> allProducts = productService.findAllProducts();
@@ -70,6 +72,10 @@ public class ProductController {
                         .build());
     }
 
+    // endregion
+
+    // region DSL Implementation
+
     @GetMapping("/matchAll")
     public ResponseEntity<?> matchAll() throws IOException {
         SearchResponse<Map> searchResponse = elasticSearchService.matchAllService();
@@ -79,6 +85,16 @@ public class ProductController {
     @GetMapping("/matchAllProducts")
     public ResponseEntity<List<ProductDTO>> matchAllProducts() throws IOException {
         SearchResponse<Product> searchResponse = elasticSearchService.matchAllProduct();
+        return ResponseEntity.ok(extractProductDTOSFromSearchResponse(searchResponse));
+    }
+
+    @GetMapping("/matchProductsWithName/{name}")
+    public ResponseEntity<List<ProductDTO>> matchAllProducts(@PathVariable String name) throws IOException {
+        SearchResponse<Product> searchResponse = elasticSearchService.matchProductWithName(name);
+        return ResponseEntity.ok(extractProductDTOSFromSearchResponse(searchResponse));
+    }
+
+    private List<ProductDTO> extractProductDTOSFromSearchResponse(SearchResponse<Product> searchResponse) {
         List<Hit<Product>> listOfHits = searchResponse.hits().hits();
         List<ProductDTO> productDTOS = new ArrayList<>();
         for (Hit<Product> hit : listOfHits) {
@@ -86,6 +102,8 @@ public class ProductController {
             final ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
             productDTOS.add(productDTO);
         }
-        return ResponseEntity.ok(productDTOS);
+        return productDTOS;
     }
+
+    // endregion
 }

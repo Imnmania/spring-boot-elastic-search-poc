@@ -23,15 +23,27 @@ public class ElasticSearchServiceImpl implements ElasticSearchService {
     @Override
     public SearchResponse<Map> matchAllService() throws IOException {
         Supplier<Query> supplier = ElasticSearchUtils.supplier();
-        SearchResponse<Map> searchResponse = elasticsearchClient.search(builder -> builder.query(supplier.get()), Map.class);
+        SearchResponse<Map> searchResponse = elasticsearchClient
+                .search(builder -> builder.query(supplier.get()), Map.class);
         log.info("search response: {}", searchResponse);
         return searchResponse;
     }
 
+    @Override
     public SearchResponse<Product> matchAllProduct() throws IOException {
         Supplier<Query> supplier = ElasticSearchUtils.supplier();
-        SearchResponse<Product> searchResponse = elasticsearchClient.search(builder -> builder.index("products").query(supplier.get()), Product.class);
+        SearchResponse<Product> searchResponse = elasticsearchClient
+                .search(builder -> builder.index("products").query(supplier.get()), Product.class);
         log.info("products search response: {}", searchResponse);
+        return searchResponse;
+    }
+
+    @Override
+    public SearchResponse<Product> matchProductWithName(String name) throws IOException {
+        Supplier<Query> supplier = ElasticSearchUtils.supplierWithName(name);
+        SearchResponse<Product> searchResponse = elasticsearchClient
+                .search(builder -> builder.index("products").query(supplier.get()), Product.class);
+        log.info("products with name search response: {}", searchResponse);
         return searchResponse;
     }
 }

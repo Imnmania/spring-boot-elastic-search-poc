@@ -12,4 +12,6 @@ public interface ElasticSearchService {
 
     public SearchResponse<Product> matchAllProduct() throws IOException;
 
+    public SearchResponse<Product> matchProductWithName(String name) throws IOException;
+
 }

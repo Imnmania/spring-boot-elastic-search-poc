@@ -80,3 +80,10 @@ https://localhost:9200/products/_search
     }
 }
 ```
+```json
+{
+    "query": {
+        "match_all": {}
+    }
+}
+```
