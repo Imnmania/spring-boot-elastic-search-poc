@@ -54,3 +54,29 @@ docker exec -it es01 /usr/share/elasticsearch/jdk/bin/keytool -import -file /usr
 ```
 docker cp es01:/usr/share/elasticsearch/config/certs/truststore.p12 <your-location>
 ```
+---
+## `Accessing data from ElasticSearch`
+* **Enter search endpoint of the said object with the elastic search ip with `GET` request**
+```
+https://localhost:9200/products/_search
+```
+
+* **Now enter the necessary queries in the request body**
+```json
+{
+    "query": {
+        "wildcard": {
+            "description": "*ing*"
+        }
+    }
+}
+```
+```json
+{
+    "query": {
+        "match": {
+            "quantity": 5
+        }
+    }
+}
+```
