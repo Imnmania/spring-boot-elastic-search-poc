@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -29,6 +31,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ElasticSearchSSLException.class)
     public ResponseEntity<?> handleElasticSearchSSLException(ElasticSearchSSLException exception) {
+        GenericResponse response = GenericResponse.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<?> handleIOException(IOException exception) {
         GenericResponse response = GenericResponse.builder()
                 .message(exception.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
